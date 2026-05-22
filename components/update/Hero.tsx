@@ -148,24 +148,20 @@ export default function UpdateHero() {
                 Special Pricing:
               </span>
               <span className="text-2xl font-black text-pink-600 font-sans tracking-tight">
-                From <span className="text-3xl font-black text-red-500 underline decoration-pink-300 underline-offset-4">$42.99</span>
+                From <span className="text-3xl font-black text-red-500 underline decoration-pink-300 underline-offset-4">৳50</span>
               </span>
             </div>
 
             {/* Action Button: Rounded white with pink border and fill transitions */}
             <div className="flex flex-col sm:flex-row gap-4 items-center">
               <Link
-                href="/shop"
+                href="/products"
                 className="group relative px-10 py-4 bg-white border-2 border-pink-500 text-pink-500 hover:text-white font-sans font-bold text-base tracking-wider rounded-full shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden flex items-center justify-center"
               >
                 {/* Background Fill Transition */}
                 <span className="absolute inset-0 w-0 h-full bg-pink-500 transition-all duration-300 group-hover:w-full -z-10" />
                 View Shop
-              </Link>
-
-              <span className="text-gray-400 text-xs font-semibold tracking-wide">
-                * Guaranteed Premium Safe Toys
-              </span>
+              </Link> 
             </div>
 
           </div>

@@ -21,6 +21,7 @@ export default function UpdateHeader() {
   const navLinks = [
     // { name: "Home", href: "/update", hasDropdown: true },
     { name: "Home", href: "/", hasDropdown: false },
+    { name: "New Arrivals", href: "/new-arrival", hasDropdown: false },
     { name: "About us", href: "/about", hasDropdown: false },
     { name: "Shop", href: "/products", hasDropdown: false },
     // { name: "Pages", href: "#", hasDropdown: false },
