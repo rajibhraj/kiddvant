@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Search, User, ShoppingCart, HelpCircle } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { useCartSidebar } from "@/context/CartSidebarContext";
 
@@ -20,6 +21,11 @@ const navItems = [
 export default function Navbar() {
   const { getCartCount } = useCart();
   const { openCart } = useCartSidebar();
+  const pathname = usePathname();
+
+  if (pathname === "/update" || pathname.startsWith("/update/")) {
+    return null;
+  }
 
   return (
     <header className="w-full border-b bg-white sticky top-0 z-50">

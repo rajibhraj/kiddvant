@@ -100,6 +100,8 @@ const socialLinks = [
   { icon: YoutubeIcon, href: "#", label: "YouTube" },
 ];
 
+import { usePathname } from "next/navigation";
+
 const legalLinks = [
   { label: "Terms", href: "#" },
   { label: "Privacy Notice", href: "#" },
@@ -111,6 +113,11 @@ const legalLinks = [
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [agreed, setAgreed] = useState(false);
+  const pathname = usePathname();
+
+  if (pathname === "/update" || pathname.startsWith("/update/")) {
+    return null;
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -124,7 +131,7 @@ export default function Footer() {
   return (
     <footer className="w-full">
       {/* Main Footer */}
-      <div className="bg-gradient-to-r from-[#8BC4F0] via-[#6BB3E8] to-[#3D6A9B]">
+      <div className="bg-gradient-to-r from-[#FB64B6] to-[#FCF2F7]">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row">
             {/* Left Section - Links */}
@@ -209,7 +216,7 @@ export default function Footer() {
             </div>
 
             {/* Right Section - Newsletter */}
-            <div className="lg:w-[400px] bg-[#2D5A87] py-12 px-6 md:px-10">
+            <div className="lg:w-[400px] bg-[#F6339A] py-12 px-6 md:px-10">
               <div className="flex justify-center mb-6">
                 <div className="w-16 h-16 border-2 border-white/40 rounded-lg flex items-center justify-center">
                   <svg
