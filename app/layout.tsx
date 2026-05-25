@@ -6,6 +6,7 @@ import Footer from "@/components/shared/Footer";
 import { CartProvider } from "@/context/CartContext";
 import { CartSidebarProvider } from "@/context/CartSidebarContext";
 import CartSidebarWrapper from "@/components/CartSidebarWrapper";
+import UpdateHeader from "@/components/update/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,14 +40,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${patrickHandRegular.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <CartProvider>
-          <CartSidebarProvider>
-            <Navbar/>
-            <main className="flex-1">{children}</main>
-            <Footer/>
-            <CartSidebarWrapper />
-          </CartSidebarProvider>
-        </CartProvider>
+        
+            <main className="flex-1">{children}</main> 
       </body>
     </html>
   );

@@ -51,7 +51,7 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16 px-4">
+      <div className="relative bg-gradient-to-r from-[#F6339A] to-[#FFD383] text-white py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">Our Products</h1>
           <p className="text-xl md:text-2xl opacity-90">Discover amazing toys for every age</p>
@@ -78,7 +78,7 @@ export default function ProductsPage() {
             {/* Filter Toggle */}
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
+              className="flex items-center gap-2 px-6 py-3 bg-[#F6339A] text-white rounded-xl hover:bg-blue-700 transition"
             >
               <SlidersHorizontal size={20} />
               Filters
@@ -89,7 +89,7 @@ export default function ProductsPage() {
               <button
                 onClick={() => setViewMode("grid")}
                 className={`p-3 rounded-xl transition ${
-                  viewMode === "grid" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  viewMode === "grid" ? "bg-[#F6339A] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
                 <Grid size={20} />
@@ -97,7 +97,7 @@ export default function ProductsPage() {
               <button
                 onClick={() => setViewMode("list")}
                 className={`p-3 rounded-xl transition ${
-                  viewMode === "list" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  viewMode === "list" ? "bg-[#F6339A] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
                 <List size={20} />
@@ -130,7 +130,7 @@ export default function ProductsPage() {
                       onClick={() => setSelectedCategory(category)}
                       className={`px-4 py-2 rounded-full text-sm font-medium transition ${
                         selectedCategory === category
-                          ? "bg-blue-600 text-white"
+                          ? "bg-[#F6339A] text-white"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                       }`}
                     >
@@ -151,14 +151,14 @@ export default function ProductsPage() {
                   max="1000"
                   value={priceRange[1]}
                   onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#F6339A]"
                 />
               </div>
 
               {/* Results Count */}
               <div className="flex items-end">
                 <p className="text-gray-600">
-                  Showing <span className="font-bold text-blue-600">{filteredProducts.length}</span> products
+                  Showing <span className="font-bold text-[#F6339A]">{filteredProducts.length}</span> products
                 </p>
               </div>
             </div>
@@ -200,7 +200,7 @@ export default function ProductsPage() {
 
                   {/* Badge */}
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs font-bold rounded-full">
+                    <span className="px-3 py-1 bg-gradient-to-r from-[#F6339A] to-purple-600 text-white text-xs font-bold rounded-full">
                       NEW
                     </span>
                   </div>
@@ -208,7 +208,7 @@ export default function ProductsPage() {
 
                 {/* Content */}
                 <div className="p-5">
-                  <h3 className="font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-blue-600 transition">
+                  <h3 className="font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-[#F6339A] transition">
                     {product.product_name}
                   </h3>
                   
@@ -222,7 +222,7 @@ export default function ProductsPage() {
                   </div>
 
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <span className="text-2xl font-bold bg-gradient-to-r from-[#F6339A] to-purple-600 bg-clip-text text-transparent">
                       ৳{product.price_bdt}
                     </span>
                   </div>
@@ -230,13 +230,13 @@ export default function ProductsPage() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleViewDetails(product)}
-                      className="flex-1 border-2 border-blue-600 text-blue-600 py-2.5 rounded-xl font-semibold hover:bg-blue-50 transition"
+                      className="flex-1 border-2 border-[#F6339A] text-[#F6339A] py-2.5 rounded-xl font-semibold hover:bg-blue-50 transition"
                     >
                       View Details
                     </button>
                     <button
                       onClick={() => handleAddToCart(product)}
-                      className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2.5 rounded-xl font-semibold hover:opacity-90 transition flex items-center justify-center gap-2"
+                      className="flex-1 bg-gradient-to-r from-[#FFE0EF] to-[#FFD383] text-black py-2.5 rounded-xl font-semibold hover:opacity-90 transition flex items-center justify-center gap-2"
                     >
                       <ShoppingCart size={18} />
                       Add
@@ -268,7 +268,7 @@ export default function ProductsPage() {
                   <div className="flex-1 p-6">
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                       <div className="flex-1">
-                        <h3 className="font-bold text-xl text-gray-800 mb-2 group-hover:text-blue-600 transition">
+                        <h3 className="font-bold text-xl text-gray-800 mb-2 group-hover:text-[#F6339A] transition">
                           {product.product_name}
                         </h3>
                         
@@ -292,20 +292,20 @@ export default function ProductsPage() {
                       </div>
 
                       <div className="flex flex-col items-start md:items-end gap-4">
-                        <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        <span className="text-3xl font-bold bg-gradient-to-r from-[#F6339A] to-purple-600 bg-clip-text text-transparent">
                           ৳{product.price_bdt}
                         </span>
                         
                         <div className="flex gap-2">
                           <button
                             onClick={() => handleViewDetails(product)}
-                            className="px-6 py-2.5 border-2 border-blue-600 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition"
+                            className="px-6 py-2.5 border-2 border-[#F6339A] text-[#F6339A] rounded-xl font-semibold hover:bg-blue-50 transition"
                           >
                             View Details
                           </button>
                           <button
                             onClick={() => handleAddToCart(product)}
-                            className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:opacity-90 transition flex items-center gap-2"
+                            className="px-6 py-2.5 bg-gradient-to-r from-[#F6339A] to-purple-600 text-white rounded-xl font-semibold hover:opacity-90 transition flex items-center gap-2"
                           >
                             <ShoppingCart size={18} />
                             Add to Cart
