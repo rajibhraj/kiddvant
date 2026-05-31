@@ -13,10 +13,14 @@ import {
   X
 } from "lucide-react";
 import Image from "next/image";
+import { useCart } from "@/context/CartContext";
+import { useCartSidebar } from "@/context/CartSidebarContext";
 
 export default function UpdateHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(false);
+  const { getCartCount } = useCart();
+  const { openCart } = useCartSidebar();
 
   const navLinks = [
     // { name: "Home", href: "/update", hasDropdown: true },
@@ -137,12 +141,18 @@ export default function UpdateHeader() {
               <Heart size={20} />
             </button>
 
-            {/* Cart Icon with red badge */}
-            <button className="relative p-1.5 hover:bg-pink-50 hover:text-pink-500 rounded-full transition duration-300">
+            {/* Cart Icon with badge */}
+            <button
+              onClick={openCart}
+              className="relative p-1.5 hover:bg-pink-50 hover:text-pink-500 rounded-full transition duration-300"
+              aria-label="Open cart"
+            >
               <ShoppingCart size={20} />
-              <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[9px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center border border-white animate-pulse">
-                3
-              </span>
+              {getCartCount() > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center border border-white">
+                  {getCartCount()}
+                </span>
+              )}
             </button>
 
             {/* User Profile Icon */}
