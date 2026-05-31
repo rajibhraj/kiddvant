@@ -1,13 +1,9 @@
 "use client";
 
-import { Product } from "@/lib/products";
+import { Product } from "./Product";
 import PopularPicks from "./Product";
-import { useState } from "react";
-import CheckoutPage from "./checkout-page";
-
- 
-
-// Example usage in a Next.js page or parent component:
+import { useCart } from "@/context/CartContext";
+import { useCartSidebar } from "@/context/CartSidebarContext";
 
 const products: Product[] = [
   {
@@ -19,10 +15,7 @@ const products: Product[] = [
     origin: "Hunan province",
     price_bdt: 550,
     product_image: "/Product/p1.jpg",
-    features: {
-      contents: "20 magnetic fish + 2 fishing rods",
-      packaging: "Storage bucket"
-    }
+    features: { contents: "20 magnetic fish + 2 fishing rods", packaging: "Storage bucket" },
   },
   {
     id: 2,
@@ -34,7 +27,7 @@ const products: Product[] = [
     price_bdt: 150,
     product_image: "/Product/p2.jpg",
     dimensions: "5.9*7.7*6.9cm",
-    mechanism: "Inertia"
+    mechanism: "Inertia",
   },
   {
     id: 3,
@@ -45,7 +38,7 @@ const products: Product[] = [
     origin: "Hunan province",
     price_bdt: 100,
     product_image: "/Product/p3.webp",
-    dimensions: "13*4.7*6cm"
+    dimensions: "13*4.7*6cm",
   },
   {
     id: 4,
@@ -55,7 +48,7 @@ const products: Product[] = [
     origin: "Hunan province",
     price_bdt: 180,
     product_image: "/Product/p4.webp",
-    dimensions: "12.5*5*6CM"
+    dimensions: "12.5*5*6CM",
   },
   {
     id: 5,
@@ -65,7 +58,7 @@ const products: Product[] = [
     type: "Stuffed doll",
     price_bdt: 600,
     product_image: "/Product/p5.webp",
-    size_range: "30cm - 65cm"
+    size_range: "30cm - 65cm",
   },
   {
     id: 6,
@@ -76,7 +69,7 @@ const products: Product[] = [
     color_variant: "Full English 224 + Cat Blue",
     price_bdt: 550,
     product_image: "/Product/p6.webp",
-    size_range: "30cm - 65cm"
+    size_range: "30cm - 65cm",
   },
   {
     id: 7,
@@ -86,7 +79,7 @@ const products: Product[] = [
     age_range: "4-6 years old",
     price_bdt: 750,
     product_image: "/Product/p7.webp",
-    size: "30cm - 65cm"
+    size: "30cm - 65cm",
   },
   {
     id: 8,
@@ -96,7 +89,7 @@ const products: Product[] = [
     age_range: "4-6 years old",
     price_bdt: 250,
     product_image: "/Product/p8.webp",
-    size: "30cm - 65cm"
+    size: "30cm - 65cm",
   },
   {
     id: 9,
@@ -107,7 +100,7 @@ const products: Product[] = [
     color: "Blue",
     price_bdt: 120,
     product_image: "/Product/p9.webp",
-    size: "15cm"
+    size: "15cm",
   },
   {
     id: 10,
@@ -117,31 +110,22 @@ const products: Product[] = [
     age_range: "4-6 years old",
     price_bdt: 240,
     product_image: "/Product/p10.jpg",
-    size: "15cm"
-  }
+    size: "15cm",
+  },
 ];
 
 export default function PopularPicksPage() {
-      const [cartItems, setCartItems] = useState([]);
+  const { addToCart } = useCart();
+  const { openCart } = useCartSidebar();
 
-  const handleAddToCart = ( ) => {
-    // // This logic is also inside CheckoutPage, or you can lift state up
-    // setCartItems(prev => {
-    //   const existing = prev.find(item => item.id === product.id);
-    //   if (existing) {
-    //     return prev.map(item => 
-    //       item.id === product.id ? { ...item    , quantity: item.quantity + 1 } : item
-    //     );
-    //   }
-    //   return [...prev, { ...product, quantity: 1 }];
-    // });
+  const handleAddToCart = (product: Product) => {
+    addToCart(product);
+    openCart();
   };
-
 
   return (
     <main className="min-h-screen bg-white">
       <PopularPicks products={products} onAddToCart={handleAddToCart} />
-      <CheckoutPage initialCartItems={cartItems} />
     </main>
   );
 }
