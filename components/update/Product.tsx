@@ -2,34 +2,18 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { Product } from "@/lib/products";
 
-// ─── Types ─────────────────────────────────────────────────────────
-export interface Product {
-  id: number;
-  product_name: string;
-  brand?: string | null;
-  material?: string;
-  age_range?: string;
-  origin?: string;
-  price_bdt: number;
-  product_image: string;
-  features?: Record<string, string>;
-  dimensions?: string;
-  mechanism?: string;
-  types?: string[];
-  type?: string;
-  size_range?: string;
-  size?: string;
-  function?: string;
-  color_variant?: string;
-  color?: string;
-}
+// Re-export so other files can import Product from here if needed
+export type { Product };
 
 interface ProductCardProps {
   product: Product;
   index: number;
   isHovered: boolean;
   onHover: (index: number | null) => void;
+  onAddToCart?: (product: Product) => void;
+  onViewDetails?: (product: Product) => void;
 }
 
 // ─── Mock Data Helpers ───────────────────────────────────────────────
@@ -190,6 +174,14 @@ const ProductCard = ({ product, index, isHovered, onHover }: ProductCardProps) =
   const rating = getRating(product.id);
   const reviewCount = getReviewCount(product.id);
 
+  function onViewDetails(product: Product): void {
+    throw new Error("Function not implemented.");
+  }
+
+  function onAddToCart(product: Product): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div
       className="relative flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/5 px-2"
@@ -217,7 +209,11 @@ const ProductCard = ({ product, index, isHovered, onHover }: ProductCardProps) =
 
           {/* Hover Action Icons */}
           <div className={`absolute right-1 top-1/2 -translate-y-1/2 flex flex-col gap-2 transition-all duration-300 ${isHovered ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2"}`}>
-            <button className="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 hover:text-pink-500 hover:bg-pink-50 transition-colors">
+            <button
+              onClick={() => onViewDetails?.(product)}
+              className="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 hover:text-pink-500 hover:bg-pink-50 transition-colors"
+              aria-label="Quick view"
+            >
               <EyeIcon />
             </button>
             <button className="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 hover:text-pink-500 hover:bg-pink-50 transition-colors">
@@ -255,6 +251,7 @@ const ProductCard = ({ product, index, isHovered, onHover }: ProductCardProps) =
 
         {/* Add to Cart Button */}
         <button 
+          onClick={() => onAddToCart?.(product)}
           className={`mt-auto w-full py-2 px-4 rounded-full border-2 border-dashed border-pink-400 text-pink-500 text-sm font-medium transition-all duration-300 hover:bg-pink-500 hover:text-white hover:border-pink-500 ${
             isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none lg:opacity-0"
           }`}
@@ -270,10 +267,11 @@ const ProductCard = ({ product, index, isHovered, onHover }: ProductCardProps) =
 interface PopularPicksProps {
   products: Product[];
   onAddToCart?: (product: Product) => void;
+  onViewDetails?: (product: Product) => void;
   cartItemCount?: number;
 }
 
-export default function PopularPicks({ products, onAddToCart }: PopularPicksProps) {
+export default function PopularPicks({ products, onAddToCart, onViewDetails }: PopularPicksProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [itemsPerView, setItemsPerView] = useState(5);
@@ -360,6 +358,8 @@ export default function PopularPicks({ products, onAddToCart }: PopularPicksProp
                   index={index}
                   isHovered={hoveredIndex === index}
                   onHover={setHoveredIndex}
+                  onAddToCart={onAddToCart}
+                  onViewDetails={onViewDetails}
                 />
               ))}
             </div>
