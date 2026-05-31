@@ -2,8 +2,10 @@
 
 import { Product } from "@/lib/Index ";
 import { motion } from "framer-motion";
-import { ShoppingCart, Star, Heart } from "lucide-react"; 
+import { ShoppingCart, Star, Heart } from "lucide-react";
 import { useState } from "react";
+import { useCart } from "@/context/CartContext";
+import { useCartSidebar } from "@/context/CartSidebarContext";
 
 interface ProductCardProps {
   product: Product;
@@ -13,15 +15,27 @@ interface ProductCardProps {
 export default function ProductCard({ product, index }: ProductCardProps) {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
-
-  const handleAddToCart = () => {
-    setAddedToCart(true);
-    setTimeout(() => setAddedToCart(false), 1800);
-  };
+  const { addToCart } = useCart();
+  const { openCart } = useCartSidebar();
 
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : null;
+
+  const handleAddToCart = () => {
+    // Map lib/Index Product shape → lib/products Product shape expected by CartContext
+    addToCart({
+      id: product.id,
+      product_name: product.name,
+      price_bdt: product.price,
+      product_image: product.image,
+      material: "",
+      age_range: "",
+    });
+    openCart();
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 1800);
+  };
 
   return (
     <motion.div

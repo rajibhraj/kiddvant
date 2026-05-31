@@ -13,6 +13,13 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      // The react-compiler rule produces false positives for intentional
+      // loading-state initialization at the top of useEffect bodies.
+      "react-compiler/react-compiler": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;
