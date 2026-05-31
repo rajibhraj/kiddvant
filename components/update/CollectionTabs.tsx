@@ -2,6 +2,10 @@
 
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
+import { useCart } from "@/context/CartContext";
+import { useCartSidebar } from "@/context/CartSidebarContext";
+import ProductModal from "@/components/ProductModal";
+import { Product as LibProduct } from "@/lib/products";
 
 // ═══════════════════════════════════════════════════════════════════
 //  TYPES (exact shape from user's data)
@@ -298,6 +302,9 @@ const getDiscountedPrice = (price: number, discount: number | null): number => {
 
 function ProductCard({ product }: { product: Product }) {
   const [liked, setLiked] = useState(false);
+  const [added, setAdded] = useState(false);
+  const { addToCart } = useCart();
+  const { openCart } = useCartSidebar();
 
   const category = getCategoryLabel(product);
   const discount = getDiscount(product.id);
@@ -308,8 +315,16 @@ function ProductCard({ product }: { product: Product }) {
   const fullStars = Math.floor(rating);
   const hasHalf = rating % 1 >= 0.5;
 
+  const handleAddToCart = () => {
+    // CollectionTabs uses its own Product type which matches lib/products shape
+    addToCart(product as unknown as LibProduct);
+    openCart();
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1800);
+  };
+
   return (
-    <div className="group relative bg-white rounded-xl border border-gray-100 p-3 transition-all duration-300 hover:shadow-lg hover:border-pink-200 hover:-translate-y-1">
+    <div className="group relative bg-white rounded-xl border border-gray-100 p-3 transition-all duration-300 hover:shadow-lg hover:border-pink-200 hover:-translate-y-1 flex flex-col">
       {/* Discount Badge */}
       {discount && (
         <span className="absolute top-3 left-3 z-10 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow-sm">
@@ -343,7 +358,7 @@ function ProductCard({ product }: { product: Product }) {
       </span>
 
       {/* Title */}
-      <h3 className="text-sm font-semibold text-gray-800 mt-1 mb-1 leading-snug line-clamp-2 min-h-[2.4rem]">
+      <h3 className="text-sm font-semibold text-gray-800 mt-1 mb-1 leading-snug line-clamp-2 min-h-[2.4rem] flex-1">
         {product.product_name}
       </h3>
 
@@ -358,7 +373,7 @@ function ProductCard({ product }: { product: Product }) {
       </div>
 
       {/* Price */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 mb-3">
         {discount ? (
           <>
             <span className="text-xs text-gray-400 line-through">৳{product.price_bdt}</span>
@@ -368,6 +383,28 @@ function ProductCard({ product }: { product: Product }) {
           <span className="text-base font-bold text-pink-600">৳{product.price_bdt}</span>
         )}
       </div>
+
+      {/* Add to Cart */}
+      <button
+        onClick={handleAddToCart}
+        className={`w-full py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 ${
+          added
+            ? "bg-green-500 text-white"
+            : "bg-pink-500 hover:bg-pink-600 text-white shadow-sm hover:shadow-pink-200 hover:shadow-md"
+        }`}
+      >
+        {added ? (
+          "✓ Added!"
+        ) : (
+          <>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            Add to Cart
+          </>
+        )}
+      </button>
     </div>
   );
 }
